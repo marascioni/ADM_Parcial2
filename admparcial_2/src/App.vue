@@ -1,38 +1,32 @@
 <template>
-  <v-app>
-    <v-app-bar app color="secondary" dark>
-      <div class="d-flex align-center">
-       <span>Titulo</span>
-      </div>
-
-      <v-spacer></v-spacer>
-
-      <v-btn      
-        text
-      >
-        <span class="mr-2">Iniciar sesión</span>
-        <v-icon>mdi-account</v-icon>
-      </v-btn>
-    </v-app-bar>
-
-    <v-main>
-      <HelloWorld msg="Estamos probando vue2 via cli" />
-    </v-main>
-  </v-app>
+  <div id="app">
+    <nav>
+      <router-link to="/">Home</router-link> |
+      <router-link to="/about">About</router-link>
+    </nav>
+    <router-view/>
+  </div>
 </template>
 
-<script>
-import HelloWorld from "./components/HelloWorld";
+<style lang="scss">
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+}
 
-export default {
-  name: "App",
+nav {
+  padding: 30px;
 
-  components: {
-    HelloWorld,
-  },
+  a {
+    font-weight: bold;
+    color: #2c3e50;
 
-  data: () => ({
-    //
-  }),
-};
-</script>
+    &.router-link-exact-active {
+      color: #42b983;
+    }
+  }
+}
+</style>
