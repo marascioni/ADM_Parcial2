@@ -1,10 +1,21 @@
 <template>
   <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </nav>
-    <router-view/>
+    <v-app>
+      <v-app-bar
+        app
+        color="secondary"
+        dark
+        >
+        <nav>
+          <router-link to="/">Información general</router-link> |
+          <router-link to="/about">Mi perfil</router-link> |
+          <router-link to="/contact">Configuraciones</router-link>
+        </nav>
+      </v-app-bar>
+      <v-main>
+        <router-view />
+      </v-main>
+    </v-app>
   </div>
 </template>
 
