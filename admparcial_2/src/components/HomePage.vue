@@ -12,12 +12,11 @@
       ></v-select>
     </v-col>
 
-    <v-card
-      class="mx-auto card-desc"
-      max-width="60%"
-      v-if="selectedItems != 'Catálogo'"
+    <v-card class="mx-auto card-desc" max-width="60%" v-if="selectedItems != 'Catálogo'"
     >
-      <v-card-title class="titulo titulo-desc">{{ selectedItems }}</v-card-title>
+      <v-card-title class="titulo titulo-desc">{{
+        selectedItems
+      }}</v-card-title>
       <v-expand-transition>
         <div>
           <v-card-text>
@@ -70,14 +69,13 @@
   </div>
 </template>
 
-
 <script>
-import FooterPage from '@/components/FooterPage.vue'
+import FooterPage from "@/components/FooterPage.vue";
 
 export default {
   name: "NuevaObra",
   components: {
-    FooterPage
+    FooterPage,
   },
   data: () => ({
     show: true,
@@ -206,7 +204,7 @@ h2 {
 
 .card-desc {
   margin: 20px;
-  background-color: rgb(111, 111, 111);;
+  background-color: rgb(111, 111, 111);
 }
 
 .titulo {
@@ -230,14 +228,14 @@ span {
 
 .card-desc {
   margin: 20px;
-  background-color: rgb(111, 111, 111);;
+  background-color: rgb(111, 111, 111);
 }
 
-.titulo-desc{
+.titulo-desc {
   color: white;
 }
-.parr-desc{
-  padding:0px 2%;
+.parr-desc {
+  padding: 0px 2%;
   color: white;
   font-size: 1.2rem;
   line-height: 1.2;
