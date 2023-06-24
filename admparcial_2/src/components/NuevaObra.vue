@@ -1,5 +1,5 @@
 <template>
-  <div id="nuevaObra" class="mx-auto fond">
+  <div id="nuevaObra" class="mx-auto fondo">
     <div class="text-center">
       <h1>Nueva Obra</h1>
     </div>
@@ -7,16 +7,16 @@
       <v-container>
         <v-row>
           <v-col cols="12" md="4">
-            <v-item>
-              <v-img src="../../public/img/logo/logo_ok.png" width="100%">
-              </v-img>
+            <v-item class="text-center">              
+                <v-img src="../../public/img/logo/logo_ok.png" class="mx-auto" width="80%">
+                </v-img>              
             </v-item>
           </v-col>
           <v-col cols="12" md="6">
             <v-item>
-              <form class="mx-10">
+              <form class="mx-10 rounded-lg">
                 <v-text-field
-                  class="input-field"
+                  class="px-5"
                   v-model="titulo"
                   label="Título"
                   required
@@ -24,6 +24,7 @@
                   @blur="$v.titulo.$touch()"
                 ></v-text-field>
                 <v-text-field
+                  class="px-5"
                   v-model="imagen"
                   label="Imagen"
                   required
@@ -31,6 +32,7 @@
                   @blur="$v.imagen.$touch()"
                 ></v-text-field>
                 <v-text-field
+                  class="px-5"
                   v-model="altImg"
                   label="Texto Alternativo"
                   required
@@ -38,6 +40,7 @@
                   @blur="$v.altImg.$touch()"
                 ></v-text-field>
                 <v-text-field
+                  class="px-5"
                   v-model="anio"
                   label="Año obra"
                   required
@@ -45,6 +48,7 @@
                   @blur="$v.anio.$touch()"
                 ></v-text-field>
                 <v-text-field
+                  class="px-5"
                   v-model="estilo"
                   label="Estilo"
                   required
@@ -52,6 +56,7 @@
                   @blur="$v.estilo.$touch()"
                 ></v-text-field>
                 <v-text-field
+                  class="px-5"
                   v-model="artista"
                   label="Artista"
                   required
@@ -60,6 +65,7 @@
                 ></v-text-field>
 
                 <v-select
+                  class="px-5"
                   v-model="categoria"
                   :items="listarCategoria"
                   label="Categoría"
@@ -68,7 +74,9 @@
                   @blur="$v.select.$touch()"
                 ></v-select>
 
-                <v-btn class="mr-4" @click="submit"> Agregar </v-btn>
+                <v-btn class="mr-4 mb-4 secondary" @click="submit">
+                  Agregar
+                </v-btn>
               </form>
             </v-item>
           </v-col>
@@ -110,8 +118,7 @@ export default {
         mensaje:
           "“La fotografia es un secreto de un secreto. Cuanto mas te dice, menos sabes“ (Diane Arbus).  «Lo más importante no es la cámara, sino el ojo.» (Alfred Eisenstaedt)",
       },
-    ],
-    items: ["Item 1", "Item 2", "Item 3", "Item 4"],
+    ],    
   }),
   props: {
     msg: String,
@@ -146,9 +153,6 @@ h1 {
 }
 
 form {
-  color: rebeccapurple;
+  background-color: rgb(255, 255, 255);
 }
-
-.v-label { color: rgb(255, 0, 0) !important; }
-
 </style>
