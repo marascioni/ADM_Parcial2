@@ -7,9 +7,13 @@
       <v-container>
         <v-row>
           <v-col cols="12" md="4">
-            <v-item class="text-center">              
-                <v-img src="../../public/img/logo/logo_ok.png" class="mx-auto" width="80%">
-                </v-img>              
+            <v-item class="text-center">
+              <v-img
+                src="../../public/img/logo/logo_ok.png"
+                class="mx-auto"
+                width="80%"
+              >
+              </v-img>
             </v-item>
           </v-col>
           <v-col cols="12" md="6">
@@ -17,51 +21,39 @@
               <form class="mx-10 rounded-lg">
                 <v-text-field
                   class="px-5"
-                  v-model="titulo"
+                  v-model="tituloObra"
                   label="Título"
                   required
-                  @input="$v.titulo.$touch()"
-                  @blur="$v.titulo.$touch()"
                 ></v-text-field>
                 <v-text-field
                   class="px-5"
-                  v-model="imagen"
+                  v-model="portadaObra"
                   label="Imagen"
                   required
-                  @input="$v.imagen.$touch()"
-                  @blur="$v.imagen.$touch()"
                 ></v-text-field>
                 <v-text-field
                   class="px-5"
-                  v-model="altImg"
+                  v-model="altObra"
                   label="Texto Alternativo"
                   required
-                  @input="$v.altImg.$touch()"
-                  @blur="$v.altImg.$touch()"
                 ></v-text-field>
                 <v-text-field
                   class="px-5"
-                  v-model="anio"
+                  v-model="anioObra"
                   label="Año obra"
                   required
-                  @input="$v.anio.$touch()"
-                  @blur="$v.anio.$touch()"
                 ></v-text-field>
                 <v-text-field
                   class="px-5"
-                  v-model="estilo"
+                  v-model="estiloObra"
                   label="Estilo"
                   required
-                  @input="$v.estilo.$touch()"
-                  @blur="$v.estilo.$touch()"
                 ></v-text-field>
                 <v-text-field
                   class="px-5"
-                  v-model="artista"
+                  v-model="autorObra"
                   label="Artista"
                   required
-                  @input="$v.artista.$touch()"
-                  @blur="$v.artista.$touch()"
                 ></v-text-field>
 
                 <v-select
@@ -70,11 +62,9 @@
                   :items="listarCategoria"
                   label="Categoría"
                   required
-                  @change="$v.select.$touch()"
-                  @blur="$v.select.$touch()"
                 ></v-select>
 
-                <v-btn class="mr-4 mb-4 secondary" @click="submit">
+                <v-btn class="mr-4 mb-4 secondary" @click="agregarObra">
                   Agregar
                 </v-btn>
               </form>
@@ -90,40 +80,38 @@
 export default {
   name: "NuevaObra",
   data: () => ({
-    name: "",
-    email: "",
-    select: null,
-    categorias: [
-      {
-        id: 1,
-        titulo: "Pintura",
-        mensaje:
-          "“Cuando miramos una obra de arte estamos sometidos al recuerdo de una multitud de cosas que para bien o para mal influyen sobre nuestros gustos“. (Gombrich)",
-      },
-      {
-        id: 2,
-        titulo: "Dibujo",
-        mensaje:
-          "“Se considera al dibujo como el lenguaje gráfico universal y ha sido utilizado por la humanidad para transmitir ideas, proyectos y en un sentido más amplio“.",
-      },
-      {
-        id: 3,
-        titulo: "Escultura",
-        mensaje:
-          "Incluye todas las artes de talla y cincel, junto con las de fundición y moldeado. ... “El escultor saca todo lo superfluo y reduce el material a la forma que existe dentro de la mente del artista“.",
-      },
-      {
-        id: 4,
-        titulo: "Fotografía",
-        mensaje:
-          "“La fotografia es un secreto de un secreto. Cuanto mas te dice, menos sabes“ (Diane Arbus).  «Lo más importante no es la cámara, sino el ojo.» (Alfred Eisenstaedt)",
-      },
-    ],    
+    tituloObra: "",
+    errorTitulo: true,
+    portadaObra: "",
+    errorPortada: true,
+    altObra: "",
+    errorAlt: true,
+    anioObra: "",
+    errorAnio: true,
+    estiloObra: "",
+    errorEstilo: true,
+    autorObra: "",
+    errorAutor: true,
+    idObra: 0,
+    errorId: true,
+    categoriaObra: "",
+    categorias: [],
+    obra: [],
+    nuevaObra: [],
+    catalogoObras: [],
   }),
   props: {
     msg: String,
   },
-
+  //Lee de localStorage las Categorias para el dropdown de selección
+  beforeMount() {
+    if (localStorage.Categoria != "[]") {
+      this.categorias = JSON.parse(localStorage.getItem("Categoria"));
+    }
+    if (localStorage.Catalogo != "[]") {
+      this.catalogoObras = JSON.parse(localStorage.getItem("Catalogo"));
+    }
+  },
   computed: {
     listarCategoria() {
       var listCategoria = [];
@@ -131,6 +119,47 @@ export default {
         listCategoria.push(this.categorias[i].titulo);
       }
       return listCategoria;
+    },
+  },
+
+  //Guarda en localStorage las obras agregadas
+  beforeDestroy() {
+    if (this.nuevaObra != []) {
+      if (localStorage.Catalogo) {
+        this.catalogoObras = JSON.parse(localStorage.getItem("Catalogo"));
+      }
+      this.catalogoObras = this.catalogoObras.concat(this.nuevaObra);
+      localStorage.setItem("Catalogo", JSON.stringify(this.catalogoObras));
+    }
+  },
+
+  methods: {
+    agregarObra: function () {
+      console.log("dentro de agregarObra");
+      //this.categoriaObra = this.categorias[this.idObra - 1].titulo;
+      for (let i = 0; i < this.categorias.length; i++) {
+        if (this.categorias[i].titulo == this.categoria)
+          this.idObra = this.categorias[i].id;
+      }
+      this.obra = {
+        nombre: this.tituloObra,
+        portada: this.portadaObra,
+        alt: this.altObra,
+        categoria: this.categoria,
+        categ: this.idObra,
+        anio: this.anioObra,
+        estilo: this.estiloObra,
+        autor: this.autorObra,
+      };
+      console.log(this.obra);
+      this.nuevaObra.push(this.obra);
+      this.tituloObra = "";
+      this.portadaObra = "";
+      this.altObra = "";
+      this.idObra = 0;
+      this.anioObra = "";
+      this.estiloObra = "";
+      this.autorObra = "";
     },
   },
 };
