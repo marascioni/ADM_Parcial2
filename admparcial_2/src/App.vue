@@ -3,11 +3,11 @@
     <v-app>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
 
-      <v-navigation-drawer permanent>
+      <v-navigation-drawer v-model="drawer" absolute left temporary>
         <v-list-item>
           <v-list-item-content>
-            <v-list-item-title class="text-h6"> Application </v-list-item-title>
-            <v-list-item-subtitle> subtext </v-list-item-subtitle>
+            <v-list-item-title class="text-h6"> SauRa </v-list-item-title>
+            <v-list-item-subtitle> Galería </v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
 
@@ -30,13 +30,6 @@
         </v-list>
       </v-navigation-drawer>
 
-      <v-app-bar app color="secondary" dark>
-        <nav>
-          <router-link to="/">Información general</router-link> |
-          <router-link to="/about">Mi perfil</router-link> |
-          <router-link to="/contact">Configuraciones</router-link>
-        </nav>
-      </v-app-bar>
       <v-main>
         <router-view />
       </v-main>
@@ -50,9 +43,8 @@ export default {
   data: () => ({
     drawer: false,
     items: [
-      { title: "Información General", icon: "mdi-view-dashboard", link: "/" },
-      { title: "Mi perfil", icon: "mdi-image", link: "/about" },
-      { title: "Configuración", icon: "mdi-help-box", link: "/contact" },
+      { title: "Home", icon: "mdi-home", link: "/" },
+      { title: "Nueva Obra", icon: "mdi-image", link: "/agregar" },
     ],
     right: null,
   }),
