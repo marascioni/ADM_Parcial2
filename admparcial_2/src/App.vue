@@ -45,8 +45,9 @@ export default {
     items: [
       { title: "Home", icon: "mdi-home", link: "/" },
       { title: "Nueva Obra", icon: "mdi-image", link: "/agregar" },
-    ],
+    ],    
     right: null,
+    
   }),
 };
 </script>
