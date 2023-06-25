@@ -58,13 +58,13 @@
 
                 <v-select
                   class="px-5"
-                  v-model="categoria"
+                  v-model="categoriaSeleccionada"
                   :items="listarCategoria"
                   label="Categoría"
                   required
                 ></v-select>
 
-                <v-btn class="mr-4 mb-4 secondary" @click="agregarObra">
+                <v-btn class="mr-4 mb-4 secondary" @click="controlarCampos">
                   Agregar
                 </v-btn>
               </form>
@@ -80,6 +80,7 @@
 export default {
   name: "NuevaObra",
   data: () => ({
+    categoriaSeleccionada: "",
     tituloObra: "",
     errorTitulo: true,
     portadaObra: "",
@@ -108,9 +109,9 @@ export default {
     if (localStorage.Categoria != "[]") {
       this.categorias = JSON.parse(localStorage.getItem("Categoria"));
     }
-    if (localStorage.Catalogo != "[]") {
+     if (localStorage.Catalogo != "[]") {
       this.catalogoObras = JSON.parse(localStorage.getItem("Catalogo"));
-    }
+    } 
   },
   computed: {
     listarCategoria() {
@@ -122,36 +123,19 @@ export default {
     },
   },
 
-  //Guarda en localStorage las obras agregadas
-  beforeDestroy() {
-    if (this.nuevaObra != []) {
-      if (localStorage.Catalogo) {
-        this.catalogoObras = JSON.parse(localStorage.getItem("Catalogo"));
-      }
-      this.catalogoObras = this.catalogoObras.concat(this.nuevaObra);
-      localStorage.setItem("Catalogo", JSON.stringify(this.catalogoObras));
-    }
-  },
-
   methods: {
     agregarObra: function () {
-      console.log("dentro de agregarObra");
-      //this.categoriaObra = this.categorias[this.idObra - 1].titulo;
-      for (let i = 0; i < this.categorias.length; i++) {
-        if (this.categorias[i].titulo == this.categoria)
-          this.idObra = this.categorias[i].id;
-      }
       this.obra = {
         nombre: this.tituloObra,
         portada: this.portadaObra,
         alt: this.altObra,
-        categoria: this.categoria,
+        categoria: this.categoriaSeleccionada,
         categ: this.idObra,
         anio: this.anioObra,
         estilo: this.estiloObra,
         autor: this.autorObra,
       };
-      console.log(this.obra);
+      
       this.nuevaObra.push(this.obra);
       this.tituloObra = "";
       this.portadaObra = "";
@@ -160,7 +144,35 @@ export default {
       this.anioObra = "";
       this.estiloObra = "";
       this.autorObra = "";
+      this.categoriaSeleccionada="Categoría";
+      this.catalogoObras = this.catalogoObras.concat(this.obra);
+      localStorage.setItem("Catalogo", JSON.stringify(this.catalogoObras));
     },
+
+    controlarCampos: function () {
+      for (let i = 0; i < this.categorias.length; i++) {
+        if (this.categorias[i].titulo == this.categoriaSeleccionada)
+          this.idObra = this.categorias[i].id;
+      }
+      this.tituloObra != "" ? this.errorTitulo=true : this.errorTitulo=false;
+      this.portadaObra != "" ? this.errorPortada=true : this.errorPortada=false;
+      this.idObra != 0 ? this.errorId=true : this.errorId=false;      
+      this.estiloObra != "" ? this.errorEstilo=true : this.errorEstilo=false;
+      this.autorObra != "" ? this.errorAutor=true : this.errorAutor=false; 
+      if (this.anioObra != ""){ 
+        if( this.anioObra >= 1 && this.anioObra <= 9999){
+          this.errorAnio=true;
+        }
+        else { this.errorAnio=false;}
+      }  
+      else {this.errorAnio=false;}
+      if(this.errorTitulo && this.errorPortada &&this.errorId &&this.errorAnio &&this.errorEstilo && this.errorAutor)
+        this.agregarObra();    
+      else{
+        console.log("hubo un error");
+      }  
+    },
+
   },
 };
 </script>
