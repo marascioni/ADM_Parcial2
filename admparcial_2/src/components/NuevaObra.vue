@@ -3,6 +3,27 @@
     <div class="text-center">
       <h1>Nueva Obra</h1>
     </div>
+    
+      <v-snackbar v-model="snackbarError" timeout="5000" top color="error" >
+        {{ textError }}
+
+        <template v-slot:action="{ attrs }">
+          <v-btn color="white" text v-bind="attrs" @click="snackbarError = false">
+            Cerrar
+          </v-btn>
+        </template>
+      </v-snackbar>
+
+      <v-snackbar v-model="snackbarOk" timeout="5000" top color="success" >
+        {{ textOk }}
+
+        <template v-slot:action="{ attrs }">
+          <v-btn color="white" text v-bind="attrs" @click="snackbarOk = false">
+            Cerrar
+          </v-btn>
+        </template>
+      </v-snackbar>
+    
     <v-item-group>
       <v-container>
         <v-row>
@@ -80,6 +101,10 @@
 export default {
   name: "NuevaObra",
   data: () => ({
+    snackbarError: false,
+    textError: `Error en el ingreso de datos`,
+    snackbarOk: false,
+    textOk: `Se agregó una nueva obra`,
     categoriaSeleccionada: "",
     tituloObra: "",
     errorTitulo: true,
@@ -109,9 +134,9 @@ export default {
     if (localStorage.Categoria != "[]") {
       this.categorias = JSON.parse(localStorage.getItem("Categoria"));
     }
-     if (localStorage.Catalogo != "[]") {
+    if (localStorage.Catalogo != "[]") {
       this.catalogoObras = JSON.parse(localStorage.getItem("Catalogo"));
-    } 
+    }
   },
   computed: {
     listarCategoria() {
@@ -135,7 +160,7 @@ export default {
         estilo: this.estiloObra,
         autor: this.autorObra,
       };
-      
+
       this.nuevaObra.push(this.obra);
       this.tituloObra = "";
       this.portadaObra = "";
@@ -144,7 +169,7 @@ export default {
       this.anioObra = "";
       this.estiloObra = "";
       this.autorObra = "";
-      this.categoriaSeleccionada="Categoría";
+      this.categoriaSeleccionada = "Categoría";
       this.catalogoObras = this.catalogoObras.concat(this.obra);
       localStorage.setItem("Catalogo", JSON.stringify(this.catalogoObras));
     },
@@ -154,25 +179,43 @@ export default {
         if (this.categorias[i].titulo == this.categoriaSeleccionada)
           this.idObra = this.categorias[i].id;
       }
-      this.tituloObra != "" ? this.errorTitulo=true : this.errorTitulo=false;
-      this.portadaObra != "" ? this.errorPortada=true : this.errorPortada=false;
-      this.idObra != 0 ? this.errorId=true : this.errorId=false;      
-      this.estiloObra != "" ? this.errorEstilo=true : this.errorEstilo=false;
-      this.autorObra != "" ? this.errorAutor=true : this.errorAutor=false; 
-      if (this.anioObra != ""){ 
-        if( this.anioObra >= 1 && this.anioObra <= 9999){
-          this.errorAnio=true;
+      this.tituloObra != ""
+        ? (this.errorTitulo = true)
+        : (this.errorTitulo = false);
+      this.portadaObra != ""
+        ? (this.errorPortada = true)
+        : (this.errorPortada = false);
+      this.idObra != 0 ? (this.errorId = true) : (this.errorId = false);
+      this.estiloObra != ""
+        ? (this.errorEstilo = true)
+        : (this.errorEstilo = false);
+      this.autorObra != ""
+        ? (this.errorAutor = true)
+        : (this.errorAutor = false);
+      if (this.anioObra != "") {
+        if (this.anioObra >= 1 && this.anioObra <= 9999) {
+          this.errorAnio = true;
+        } else {
+          this.errorAnio = false;
         }
-        else { this.errorAnio=false;}
-      }  
-      else {this.errorAnio=false;}
-      if(this.errorTitulo && this.errorPortada &&this.errorId &&this.errorAnio &&this.errorEstilo && this.errorAutor)
-        this.agregarObra();    
-      else{
-        console.log("hubo un error");
-      }  
+      } else {
+        this.errorAnio = false;
+      }
+      if (
+        this.errorTitulo &&
+        this.errorPortada &&
+        this.errorId &&
+        this.errorAnio &&
+        this.errorEstilo &&
+        this.errorAutor
+      ){
+        this.agregarObra();
+        this.snackbarOk=true;
+      }
+      else {
+        this.snackbarError = true;
+      }
     },
-
   },
 };
 </script>
@@ -196,4 +239,5 @@ h1 {
 form {
   background-color: rgb(255, 255, 255);
 }
+
 </style>
