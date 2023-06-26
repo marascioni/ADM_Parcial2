@@ -101,7 +101,7 @@ const firebaseConfig = {
   appId: "1:1062042767340:web:73eba1582192d27f3f7ac9"
 };
 const app = initializeApp(firebaseConfig);
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword,signOut  } from "firebase/auth";
 const auth = getAuth(app);
 
 
@@ -212,25 +212,39 @@ export default {
    },
   methods: {
     login() {
-      
+      if(!this.sesion){
       signInWithEmailAndPassword(auth, this.email, this.password)
-  .then((userCredential) => {
-    // Signed in 
-    const user = userCredential.user;
-    console.log(user);
-    this.sesion=true;
-    this.dialog=false;
-    this.textLogin="Cierre de sesión";
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    console.log(errorCode, errorMessage);
-  });
+        .then((userCredential) => {
+          // Signed in 
+          const user = userCredential.user;
+          console.log(user);
+          this.sesion=true;
+          this.dialog=false;
+          this.textLogin="Cierre de sesión";
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log(errorCode, errorMessage);
+          
+        })}        
     },
     showDialog(){
       console.log("login");
-      this.dialog=true;
+      console.log(this.sesion);
+      if(!this.sesion){
+        this.dialog=true;
+      }else{
+          signOut(auth).then(() => {
+              // Sign-out successful.
+            }).catch((error) => {
+              // An error happened.
+              console.log(error);
+            });
+            this.sesion=false;
+            this.textLogin="Inicio de sesión";
+            this.$router.push('/');
+        }
     },
   },
 };
