@@ -94,17 +94,20 @@
         </v-row>
       </v-container>
     </v-item-group>
+    <CardObra :obra=obra></CardObra>
     <FooterPage></FooterPage>
   </div>
 </template>
 
 <script>
 import FooterPage from "@/components/FooterPage.vue";
+import CardObra from "@/components/CardObra.vue";
 
 export default {
   name: "NuevaObra",
   components: {
     FooterPage,
+    CardObra,
   },
   data: () => ({
     snackbarError: false,
