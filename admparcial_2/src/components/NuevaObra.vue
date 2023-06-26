@@ -94,12 +94,18 @@
         </v-row>
       </v-container>
     </v-item-group>
+    <FooterPage></FooterPage>
   </div>
 </template>
 
 <script>
+import FooterPage from "@/components/FooterPage.vue";
+
 export default {
   name: "NuevaObra",
+  components: {
+    FooterPage,
+  },
   data: () => ({
     snackbarError: false,
     textError: `Error en el ingreso de datos`,
