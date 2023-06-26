@@ -7,14 +7,14 @@
         <v-list-item @click="showDialog">
           <v-list-item-content>
             <v-list-item-title class="text-h6"> SauRa </v-list-item-title>
-            <v-list-item-subtitle> Inicio sesión </v-list-item-subtitle>
+            <v-list-item-subtitle> {{textLogin}}</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
 
         <v-divider></v-divider>
 
         <v-list dense nav>
-          <v-list-item v-for="item in items" :key="item.title" link>
+          <v-list-item v-for="item in authorizedItems" :key="item.title" link>
             <v-list-item-icon>
               <v-icon>{{ item.icon }}</v-icon>
             </v-list-item-icon>
@@ -90,18 +90,35 @@
 </template>
 
 <script>
+ import { initializeApp } from "firebase/app";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCPQ5aEfJ5WA6hq9HQT4KXY03VwTna2cLs",
+  authDomain: "adm-parcial2.firebaseapp.com",
+  projectId: "adm-parcial2",
+  storageBucket: "adm-parcial2.appspot.com",
+  messagingSenderId: "1062042767340",
+  appId: "1:1062042767340:web:73eba1582192d27f3f7ac9"
+};
+const app = initializeApp(firebaseConfig);
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+const auth = getAuth(app);
+
+
 export default {
   name: "App",
   data: () => ({
     //dialog login
+    sesion: false,
     email:"",
-    password:"",
+    password:"",    
     dialog:false, 
+    textLogin:"Inicio de sesión",
     ///
     drawer: false,
     items: [
-      { title: "Home", icon: "mdi-home", link: "/" },
-      { title: "Nueva Obra", icon: "mdi-image", link: "/agregar" },      
+      { title: "Home", icon: "mdi-home", link: "/",'authRequired': false },
+      { title: "Nueva Obra", icon: "mdi-image", link: "/agregar", 'authRequired': true },      
     ],  
     categorias: [
       {
@@ -188,9 +205,28 @@ export default {
       localStorage.setItem("Categoria", JSON.stringify(this.categorias));
     }
   },
+   computed: {
+    authorizedItems() {
+      return this.items.filter(item => !item.authRequired || this.sesion);
+    },
+   },
   methods: {
     login() {
-      console.log("hola");
+      
+      signInWithEmailAndPassword(auth, this.email, this.password)
+  .then((userCredential) => {
+    // Signed in 
+    const user = userCredential.user;
+    console.log(user);
+    this.sesion=true;
+    this.dialog=false;
+    this.textLogin="Cierre de sesión";
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    console.log(errorCode, errorMessage);
+  });
     },
     showDialog(){
       console.log("login");
