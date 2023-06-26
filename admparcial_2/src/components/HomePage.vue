@@ -72,7 +72,7 @@
 import FooterPage from "@/components/FooterPage.vue";
 
 export default {
-  name: "HomePage",
+  name: "NuevaObra",
   components: {
     FooterPage,
   },
