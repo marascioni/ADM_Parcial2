@@ -1,6 +1,5 @@
 <template>
-  <div class="cardObra">
-    <h1>Obras agregada</h1>   
+  <div class="cardObra">    
     <v-card class="mx-auto" max-width="360">
       <v-card-title class="titulo">{{ obra.nombre }}</v-card-title>
       <v-img :src="obra.portada" :alt="obra.alt" height="200px"></v-img>
@@ -17,6 +16,7 @@
         </div>
       </v-expand-transition>
     </v-card>
+    
   </div>
 </template>
 

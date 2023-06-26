@@ -3,27 +3,27 @@
     <div class="text-center">
       <h1>Nueva Obra</h1>
     </div>
-    
-      <v-snackbar v-model="snackbarError" timeout="5000" top color="error" >
-        {{ textError }}
 
-        <template v-slot:action="{ attrs }">
-          <v-btn color="white" text v-bind="attrs" @click="snackbarError = false">
-            Cerrar
-          </v-btn>
-        </template>
-      </v-snackbar>
+    <v-snackbar v-model="snackbarError" timeout="5000" top color="error">
+      {{ textError }}
 
-      <v-snackbar v-model="snackbarOk" timeout="5000" top color="success" >
-        {{ textOk }}
+      <template v-slot:action="{ attrs }">
+        <v-btn color="white" text v-bind="attrs" @click="snackbarError = false">
+          Cerrar
+        </v-btn>
+      </template>
+    </v-snackbar>
 
-        <template v-slot:action="{ attrs }">
-          <v-btn color="white" text v-bind="attrs" @click="snackbarOk = false">
-            Cerrar
-          </v-btn>
-        </template>
-      </v-snackbar>
-    
+    <v-snackbar v-model="snackbarOk" timeout="5000" top color="success">
+      {{ textOk }}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn color="white" text v-bind="attrs" @click="snackbarOk = false">
+          Cerrar
+        </v-btn>
+      </template>
+    </v-snackbar>
+
     <v-item-group>
       <v-container>
         <v-row>
@@ -94,7 +94,24 @@
         </v-row>
       </v-container>
     </v-item-group>
-    <CardObra :obra=obra></CardObra>
+    <v-item-group>
+      <v-container v-if="nuevaObra.length">
+      <h2>Obras agregadas</h2>
+        <v-row>
+          <v-col
+            v-for="obra in nuevaObra"
+            :key="obra.nombre"
+            cols="12"
+            md="4"
+          >
+            <v-item>
+              <CardObra :obra="obra"></CardObra>
+            </v-item>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-item-group>
+
     <FooterPage></FooterPage>
   </div>
 </template>
@@ -217,11 +234,10 @@ export default {
         this.errorAnio &&
         this.errorEstilo &&
         this.errorAutor
-      ){
+      ) {
         this.agregarObra();
-        this.snackbarOk=true;
-      }
-      else {
+        this.snackbarOk = true;
+      } else {
         this.snackbarError = true;
       }
     },
@@ -248,5 +264,4 @@ h1 {
 form {
   background-color: rgb(255, 255, 255);
 }
-
 </style>
