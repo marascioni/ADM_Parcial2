@@ -31,3 +31,25 @@ export default {
   }),
 };
 </script>
+
+<style scoped>
+.titulo {
+  color: brown;
+  margin-left: 2rem;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+span {
+  font-weight: bold;
+}
+
+.v-card {
+  background-color: rgb(226, 226, 226);
+}
+
+p {
+  font-size: 1.2rem;
+  line-height: 0.8;
+}
+</style>

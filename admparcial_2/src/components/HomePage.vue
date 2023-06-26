@@ -2,13 +2,13 @@
   <div class="fondo">
     <h1>Obras</h1>
 
-    <v-col class="d-flex" cols="12" sm="6">
+    <v-col class="d-flex" cols="6" md="3" sm="3">
       <h2>Filtro</h2>
       <v-select
-        class="dropdown"
         v-model="selectedItems"
         :items="listarCategoria"
         solo
+
       ></v-select>
     </v-col>
 
@@ -60,11 +60,11 @@ export default {
     CardObra,
   },
   data: () => ({
-    show: true,
     selectedItems: "Catálogo",
     categorias: [],
     catalogoObras: [],
     catalogoFiltrado: [],
+    items: ["Foo", "Bar", "Fizz", "Buzz"],
   }),
   props: {
     msg: String,
@@ -133,12 +133,6 @@ h2 {
   margin: 0px 20px;
 }
 
-.dropdown {
-  color: white;
-  background-color: white;
-  max-width: 200px;
-}
-
 .card-desc {
   margin: 20px;
   background-color: rgb(111, 111, 111);
@@ -163,17 +157,13 @@ span {
   background-color: rgb(226, 226, 226);
 }
 
-.card-desc {
-  margin: 20px;
-  background-color: rgb(111, 111, 111);
+.titulo-desc {
+  color: rgb(62, 62, 62);
 }
 
-.titulo-desc {
-  color: white;
-}
 .parr-desc {
   padding: 0px 2%;
-  color: white;
+  color: rgb(118, 118, 118);
   font-size: 1.2rem;
   line-height: 1.2;
 }
