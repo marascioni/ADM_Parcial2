@@ -60,9 +60,8 @@
                             required
                           ></v-text-field>
                         </v-col>
-                        <v-col cols="12">
-                          <v-checkbox label="Politicas de privacidad*"></v-checkbox>
-                          <v-checkbox label="Términos y condiciones*"></v-checkbox>
+                        <v-col cols="12">                          
+                          <v-checkbox v-model="termCond" label="Términos y condiciones*"></v-checkbox>
                         </v-col>
                       </v-row>
                     </v-container>
@@ -112,6 +111,7 @@ export default {
     sesion: false,
     email:"",
     password:"",    
+    termCond:"",
     dialog:false, 
     textLogin:"Inicio de sesión",
     ///
@@ -149,7 +149,7 @@ export default {
     catalogoObras: [
       {
         nombre: "Agoo",
-        portada: "img/pin104.jpg",
+        portada: "pin104.jpg",
         alt: "Pintura Agoo",
         categoria: "Pintura",
         categ: 1,
@@ -159,7 +159,7 @@ export default {
       },
       {
         nombre: "El conventillo",
-        portada: "img/div201.jpg",
+        portada: "div201.jpg",
         alt: "Dibujo El conventillo",
         categoria: "Dibujo",
         categ: 2,
@@ -169,7 +169,7 @@ export default {
       },
       {
         nombre: "El mudo",
-        portada: "img/esc303.jpg",
+        portada: "esc303.jpg",
         alt: "Dibujo El mudo",
         categoria: "Escultura",
         categ: 3,
@@ -179,7 +179,7 @@ export default {
       },
       {
         nombre: "Buenos Aires nocturno",
-        portada: "img/fot401.jpg",
+        portada: "fot401.jpg",
         alt: "Fotografía Buenos Aires nocturno",
         categoria: "Fotografía",
         categ: 4,
@@ -243,7 +243,8 @@ export default {
             });
             this.sesion=false;
             this.textLogin="Inicio de sesión";
-            this.$router.push('/');
+            if(this.$route.name=='agregar')
+              this.$router.push('/');
         }
     },
   },

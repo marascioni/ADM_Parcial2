@@ -43,37 +43,44 @@
                 <v-text-field
                   class="px-5"
                   v-model="tituloObra"
-                  label="Título"
+                  label="Título*"
                   required
                 ></v-text-field>
-                <v-text-field
+                <!-- <v-text-field
                   class="px-5"
                   v-model="portadaObra"
-                  label="Imagen"
+                  label="Imagen*"
                   required
-                ></v-text-field>
+                ></v-text-field>               -->
+                <v-file-input
+                  v-model="fichero"
+                  class="px-5"
+                  label="Imagen*"
+                  type="file"
+                  accept="image/*"
+                  required
+                ></v-file-input>
                 <v-text-field
                   class="px-5"
                   v-model="altObra"
                   label="Texto Alternativo"
-                  required
                 ></v-text-field>
                 <v-text-field
                   class="px-5"
                   v-model="anioObra"
-                  label="Año obra"
+                  label="Año obra*"
                   required
                 ></v-text-field>
                 <v-text-field
                   class="px-5"
                   v-model="estiloObra"
-                  label="Estilo"
+                  label="Estilo*"
                   required
                 ></v-text-field>
                 <v-text-field
                   class="px-5"
                   v-model="autorObra"
-                  label="Artista"
+                  label="Artista*"
                   required
                 ></v-text-field>
 
@@ -81,7 +88,7 @@
                   class="px-5"
                   v-model="categoriaSeleccionada"
                   :items="listarCategoria"
-                  label="Categoría"
+                  label="Categoría*"
                   required
                 ></v-select>
 
@@ -96,14 +103,9 @@
     </v-item-group>
     <v-item-group>
       <v-container v-if="nuevaObra.length">
-      <h2>Obras agregadas</h2>
+        <h2>Obras agregadas</h2>
         <v-row>
-          <v-col
-            v-for="obra in nuevaObra"
-            :key="obra.nombre"
-            cols="12"
-            md="4"
-          >
+          <v-col v-for="obra in nuevaObra" :key="obra.nombre" cols="12" md="4">
             <v-item>
               <CardObra :obra="obra"></CardObra>
             </v-item>
@@ -127,6 +129,7 @@ export default {
     CardObra,
   },
   data: () => ({
+    file: null,
     snackbarError: false,
     textError: `Error en el ingreso de datos`,
     snackbarOk: false,
@@ -135,6 +138,7 @@ export default {
     tituloObra: "",
     errorTitulo: true,
     portadaObra: "",
+    fichero: "",
     errorPortada: true,
     altObra: "",
     errorAlt: true,
@@ -176,9 +180,31 @@ export default {
 
   methods: {
     agregarObra: function () {
+      const imgData = new FormData();
+      imgData.append("file", this.fichero);
+
+      const options = {
+        method: "POST",
+        mode: "cors",
+        cache: "no-cache",
+        body: imgData,       
+      };
+      fetch("https://parcial2adm.000webhostapp.com/carga.php", options)
+        .then((response) => {
+          console.log(response);
+          response.json();
+        })
+        .then((data) => console.log(data))
+        .catch((err) => {
+          console.log(`Hubo un error: ${err}`);
+        })
+        .finally((final) => {
+          // borra el loading
+          console.log("ejecuto el finally", final);
+        });
       this.obra = {
         nombre: this.tituloObra,
-        portada: this.portadaObra,
+        portada: this.fichero.name,
         alt: this.altObra,
         categoria: this.categoriaSeleccionada,
         categ: this.idObra,
@@ -189,13 +215,13 @@ export default {
 
       this.nuevaObra.push(this.obra);
       this.tituloObra = "";
-      this.portadaObra = "";
+      this.fichero = "";
       this.altObra = "";
       this.idObra = 0;
       this.anioObra = "";
       this.estiloObra = "";
       this.autorObra = "";
-      this.categoriaSeleccionada = "Categoría";
+      this.categoriaSeleccionada = "Categoría*";
       this.catalogoObras = this.catalogoObras.concat(this.obra);
       localStorage.setItem("Catalogo", JSON.stringify(this.catalogoObras));
     },
@@ -208,7 +234,7 @@ export default {
       this.tituloObra != ""
         ? (this.errorTitulo = true)
         : (this.errorTitulo = false);
-      this.portadaObra != ""
+      this.fichero != ""
         ? (this.errorPortada = true)
         : (this.errorPortada = false);
       this.idObra != 0 ? (this.errorId = true) : (this.errorId = false);

@@ -2,7 +2,7 @@
   <div class="cardObra">    
     <v-card class="mx-auto" max-width="360">
       <v-card-title class="titulo">{{ obra.nombre }}</v-card-title>
-      <v-img :src="obra.portada" :alt="obra.alt" height="200px"></v-img>
+      <v-img :src="'https://parcial2adm.000webhostapp.com/archivos/'+obra.portada" :alt="obra.alt" height="200px"></v-img>
       <v-expand-transition>
         <div>
           <v-divider></v-divider>
