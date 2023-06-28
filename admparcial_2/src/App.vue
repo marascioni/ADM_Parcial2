@@ -30,7 +30,15 @@
         </v-list>
       </v-navigation-drawer>
 
+      <v-snackbar v-model="snackbarError" timeout="5000" top color="error">
+            {{ textError }}
 
+            <template v-slot:action="{ attrs }">
+              <v-btn color="white" text v-bind="attrs" @click="snackbarError = false">
+                Cerrar
+              </v-btn>
+            </template>
+          </v-snackbar>
 
       <template>
         <v-row justify="center">
@@ -111,9 +119,11 @@ export default {
     sesion: false,
     email:"",
     password:"",    
-    termCond:"",
+    termCond:false,
     dialog:false, 
     textLogin:"Inicio de sesión",
+    snackbarError: false,
+    textError:'Verifique los datos cargados',
     ///
     drawer: false,
     items: [
@@ -211,8 +221,8 @@ export default {
     },
    },
   methods: {
-    login() {
-      if(!this.sesion){
+    login() {      
+      if(!this.sesion&&this.termCond){
       signInWithEmailAndPassword(auth, this.email, this.password)
         .then((userCredential) => {
           // Signed in 
@@ -227,11 +237,12 @@ export default {
           const errorMessage = error.message;
           console.log(errorCode, errorMessage);
           
-        })}        
+        })}  
+        else{
+          this.snackbarError= true;
+        }      
     },
-    showDialog(){
-      console.log("login");
-      console.log(this.sesion);
+    showDialog(){      
       if(!this.sesion){
         this.dialog=true;
       }else{
@@ -242,6 +253,7 @@ export default {
               console.log(error);
             });
             this.sesion=false;
+            this.termCond=false;
             this.textLogin="Inicio de sesión";
             if(this.$route.name=='agregar')
               this.$router.push('/');
