@@ -1,2 +1,8 @@
 user: prueba@galeriasaura.com.ar
 pass: prueba1234
+
+000webhots
+login con cuenta google
+sitio
+Parcial2ADM
+pass: parcial2_ADM
