@@ -99,7 +99,7 @@ export default {
   },
   methods: {
     descCategoria() {
-      console.log(this.categorias.length);
+      //console.log(this.categorias.length);
       for (let i = 0; i < this.categorias.length; i++) {
         if (this.categorias[i].titulo == this.selectedItems)
           return this.categorias[i].mensaje;

@@ -164,6 +164,7 @@ export default {
     ],
     catalogoObras: [
       {
+        id: 1,
         nombre: "Agoo",
         portada: "pin104.jpg",
         alt: "Pintura Agoo",
@@ -174,6 +175,7 @@ export default {
         autor: "Silva Carlos Ismael",
       },
       {
+        id: 2,
         nombre: "El conventillo",
         portada: "div201.jpg",
         alt: "Dibujo El conventillo",
@@ -184,6 +186,7 @@ export default {
         autor: "Facio Hebequer Guillermo",
       },
       {
+        id: 3,
         nombre: "El mudo",
         portada: "esc303.jpg",
         alt: "Dibujo El mudo",
@@ -194,6 +197,7 @@ export default {
         autor: "Distéfano Juan Carlos",
       },
       {
+        id: 4,
         nombre: "Buenos Aires nocturno",
         portada: "fot401.jpg",
         alt: "Fotografía Buenos Aires nocturno",

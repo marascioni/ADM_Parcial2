@@ -100,7 +100,9 @@
         <v-row>
           <v-col v-for="obra in nuevaObra" :key="obra.nombre" cols="12" md="4">
             <v-item>
-              <CardObra :obra="obra"></CardObra>
+              <CardObra :obra="obra" @borrado="borrar"></CardObra>
+              <!-- <CardObra :obra="obra" @idObra="idObra"></CardObra> -->
+              <!-- <p>{{idObra}}</p> -->
             </v-item>
           </v-col>
         </v-row>
@@ -184,7 +186,7 @@ export default {
       };
       fetch("https://parcial2adm.000webhostapp.com/carga.php", options)
         .then((response) => {
-          console.log(response);
+          //console.log(response);
           response.json();
         })
         .then((data) => console.log(data))
@@ -196,6 +198,7 @@ export default {
           console.log("ejecuto el finally", final);
         });
       this.obra = {
+        id: Date.now(),
         nombre: this.tituloObra,
         portada: this.fichero.name,
         alt: this.altObra,
@@ -217,7 +220,22 @@ export default {
       this.categoriaSeleccionada = "Categoría*";
       this.catalogoObras = this.catalogoObras.concat(this.obra);
       localStorage.setItem("Catalogo", JSON.stringify(this.catalogoObras));
+    }, 
+    borrar(idObra) {     
+      
+    for (let i = 0; i < this.catalogoObras.length; i++) {
+      if(this.catalogoObras[i].id==idObra)
+        this.catalogoObras.splice(i,1);
+    }
+    localStorage.setItem("Catalogo", JSON.stringify(this.catalogoObras)); 
+
+     for (let i = 0; i < this.nuevaObra.length; i++) {
+      if(this.nuevaObra[i].id==idObra)
+        this.nuevaObra.splice(i,1);
+    } 
     },
+    
+    
 
     controlarCampos: function () {
       for (let i = 0; i < this.categorias.length; i++) {
