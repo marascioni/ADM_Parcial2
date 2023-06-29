@@ -1,20 +1,24 @@
 <template>
   <div id="app">
     <v-app>
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-
+      <v-app-bar height="80px" >
+        <v-app-bar-nav-icon class="pb-4" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+      </v-app-bar>
       <v-navigation-drawer v-model="drawer" absolute left temporary>
         <v-list-item @click="showDialog">
           <v-list-item-content>
-          <v-container fluid>
-            <v-img
-                    src="../public/img/logo/logo_ok.png"
-                    class="mx-auto"
-                    width="80px">
-                  </v-img>
-                  </v-container>
-            <v-list-item-title class="text-h6"> SauRa </v-list-item-title>
-            <v-list-item-subtitle> {{sesion ? 'Cerrar sesión' : 'Iniciar sesión'}} </v-list-item-subtitle>
+            <v-container fluid>
+              <v-img
+                src="../public/img/logo/logo_ok.png"
+                class="mx-auto"
+                width="80px"
+              >
+              </v-img>
+            </v-container>
+            <v-list-item-title class="text-h5 text-center" > SauRa </v-list-item-title>
+            <v-list-item-subtitle class="text-h7 text-center">
+              {{ sesion ? "Cerrar sesión" : "Iniciar sesión" }} 
+            </v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
 
@@ -28,7 +32,7 @@
 
             <v-list-item-content>
               <v-list-item-title>
-                <router-link :to="item.link">
+                <router-link :to="item.link" class="link" >
                   {{ item.title }}
                 </router-link>
               </v-list-item-title>
@@ -38,60 +42,66 @@
       </v-navigation-drawer>
 
       <v-snackbar v-model="snackbarError" timeout="5000" top color="error">
-            {{ textError }}
+        {{ textError }}
 
-            <template v-slot:action="{ attrs }">
-              <v-btn color="white" text v-bind="attrs" @click="snackbarError = false">
-                Cerrar
-              </v-btn>
-            </template>
-          </v-snackbar>
+        <template v-slot:action="{ attrs }">
+          <v-btn
+            color="white"
+            text
+            v-bind="attrs"
+            @click="snackbarError = false"
+          >
+            Cerrar
+          </v-btn>
+        </template>
+      </v-snackbar>
 
       <template>
         <v-row justify="center">
           <v-dialog v-model="dialog" persistent max-width="600px">
-            <template v-slot:activator="{ }">
-              <v-btn></v-btn>
-            </template>
+            <template v-slot:activator="{}"> </template>
             <v-card>
-                  <v-card-title>
-                    <span class="text-h5">Inicio de sesión</span>
-                  </v-card-title>
-                  <v-card-text>
-                    <v-container>
-                      <v-row>
-                        <v-col cols="12">
-                          <v-text-field
-                            v-model="email"
-                            label="Email*"
-                            required
-                          ></v-text-field>
-                        </v-col>
-                        <v-col cols="12">
-                          <v-text-field
-                            v-model="password"
-                            label="Password*"
-                            type="password"
-                            required
-                          ></v-text-field>
-                        </v-col>
-                        <v-col cols="12">                          
-                          <v-checkbox v-model="termCond" label="Términos y condiciones*"></v-checkbox>
-                        </v-col>
-                      </v-row>
-                    </v-container>
-                    <small>*campos obligatorios</small>
-                  </v-card-text>
-                  <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn color="purple darken-2" text @click="dialog = false">
-                      Cerrar
-                    </v-btn>
-                    <v-btn color="purple darken-2" text @click="login" >
-                      Iniciar Sesión
-                    </v-btn>
-                  </v-card-actions>
-                </v-card>
+              <v-card-title>
+                <span class="text-h5">Inicio de sesión</span>
+              </v-card-title>
+              <v-card-text>
+                <v-container>
+                  <v-row>
+                    <v-col cols="12">
+                      <v-text-field
+                        v-model="email"
+                        label="Email*"
+                        required
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12">
+                      <v-text-field
+                        v-model="password"
+                        label="Password*"
+                        type="password"
+                        required
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12">
+                      <v-checkbox
+                        v-model="termCond"
+                        label="Términos y condiciones*"
+                      ></v-checkbox>
+                    </v-col>
+                  </v-row>
+                </v-container>
+                <small>*campos obligatorios</small>
+              </v-card-text>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="purple darken-2" text @click="dialog = false">
+                  Cerrar
+                </v-btn>
+                <v-btn color="purple darken-2" text @click="login">
+                  Iniciar Sesión
+                </v-btn>
+              </v-card-actions>
+            </v-card>
           </v-dialog>
         </v-row>
       </template>
@@ -104,7 +114,7 @@
 </template>
 
 <script>
- import { initializeApp } from "firebase/app";
+import { initializeApp } from "firebase/app";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCPQ5aEfJ5WA6hq9HQT4KXY03VwTna2cLs",
@@ -112,30 +122,34 @@ const firebaseConfig = {
   projectId: "adm-parcial2",
   storageBucket: "adm-parcial2.appspot.com",
   messagingSenderId: "1062042767340",
-  appId: "1:1062042767340:web:73eba1582192d27f3f7ac9"
+  appId: "1:1062042767340:web:73eba1582192d27f3f7ac9",
 };
 const app = initializeApp(firebaseConfig);
-import { getAuth, signInWithEmailAndPassword,signOut  } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
 const auth = getAuth(app);
-
 
 export default {
   name: "App",
   data: () => ({
     //dialog login
     sesion: false,
-    email:"",
-    password:"",    
-    termCond:false,
-    dialog:false,     
+    email: "",
+    password: "",
+    termCond: false,
+    dialog: false,
     snackbarError: false,
-    textError:'Verifique los datos cargados',
+    textError: "Verifique los datos cargados",
     ///
     drawer: false,
     items: [
-      { title: "Home", icon: "mdi-home", link: "/",'authRequired': false },
-      { title: "Nueva Obra", icon: "mdi-image", link: "/agregar", 'authRequired': true },      
-    ],  
+      { title: "Home", icon: "mdi-home", link: "/", authRequired: false },
+      {
+        title: "Nueva Obra",
+        icon: "mdi-image",
+        link: "/agregar",
+        authRequired: true,
+      },
+    ],
     categorias: [
       {
         id: 1,
@@ -212,7 +226,7 @@ export default {
   /*******************************************/
   /* METODOS */
   /*******************************************/
-  beforeMount() {    
+  beforeMount() {
     if (localStorage.Catalogo != undefined) {
       this.catalogoObras = JSON.parse(localStorage.getItem("Catalogo"));
     } else {
@@ -224,52 +238,53 @@ export default {
       localStorage.setItem("Categoria", JSON.stringify(this.categorias));
     }
   },
-   computed: {
+  computed: {
     authorizedItems() {
-      return this.items.filter(item => !item.authRequired || this.sesion);
+      return this.items.filter((item) => !item.authRequired || this.sesion);
     },
-   },
+  },
   methods: {
-    login() {      
-      if(!this.sesion&&this.termCond){
-      signInWithEmailAndPassword(auth, this.email, this.password)
-        .then((userCredential) => {
-          // Signed in 
-          const user = userCredential.user;
-          console.log(user.displayName);
-          this.sesion=true;
-          this.dialog=false;          
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;          
-          console.log( errorMessage);
-          this.snackbarError= true;
-          if(errorCode=='auth/user-not-found')
-            this.textError='El email cargado no existe';
-          if(errorCode=='auth/wrong-password')
-            this.textError='El password ingresado es incorrecto';
-        })}  
-        else{
-          this.snackbarError= true;
-          this.textError='Falta aceptar los terminos y condiciones';
-        }      
+    login() {
+      if (!this.sesion && this.termCond) {
+        signInWithEmailAndPassword(auth, this.email, this.password)
+          .then((userCredential) => {
+            // Signed in
+            const user = userCredential.user;
+            console.log(user.displayName);
+            this.sesion = true;
+            this.dialog = false;
+          })
+          .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.log(errorMessage);
+            this.snackbarError = true;
+            if (errorCode == "auth/user-not-found")
+              this.textError = "El email cargado no existe";
+            if (errorCode == "auth/wrong-password")
+              this.textError = "El password ingresado es incorrecto";
+          });
+      } else {
+        this.snackbarError = true;
+        this.textError = "Falta aceptar los terminos y condiciones";
+      }
     },
-    showDialog(){      
-      if(!this.sesion){
-        this.dialog=true;
-      }else{
-          signOut(auth).then(() => {
-              // Sign-out successful.
-            }).catch((error) => {
-              // An error happened.
-              console.log(error);
-            });
-            this.sesion=false;
-            this.termCond=false;            
-            if(this.$route.name=='agregar')
-              this.$router.push('/');
-        }
+    showDialog() {
+      if (!this.sesion) {
+        this.dialog = true;
+      } else {
+        signOut(auth)
+          .then(() => {
+            // Sign-out successful.
+          })
+          .catch((error) => {
+            // An error happened.
+            console.log(error);
+          });
+        this.sesion = false;
+        this.termCond = false;
+        if (this.$route.name == "agregar") this.$router.push("/");
+      }
     },
   },
 };
@@ -280,8 +295,9 @@ export default {
   font-family: Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+  //text-align: center;
   color: #462c50;
+  text-decoration: none;
 }
 
 nav {
@@ -295,5 +311,12 @@ nav {
       color: #42b983;
     }
   }
+}
+
+
+.link{
+  text-decoration: none;  
+  color: black!important;
+  font-weight: bold;
 }
 </style>

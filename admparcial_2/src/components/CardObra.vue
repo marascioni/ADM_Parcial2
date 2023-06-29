@@ -6,14 +6,14 @@
       contain max-height="250px" class="mx-auto"></v-img>
       <v-expand-transition>
         <div>
-          <v-card-text>
+          <v-card-text class="text-center">
           <p hidden>{{obra.id}}</p>
             <p><span>Autor:</span> {{ obra.autor }}</p>
             <p><span>Categoría:</span> {{ obra.categoria }}</p>
             <p><span>Estilo:</span> {{ obra.estilo }}</p>
-            <p :class="`rounded white--text font-weight-${(obra.anio < 1950) ? 'black cyan' : 'regular indigo'}` "><span>Año:</span> {{ obra.anio }}</p>
+            <p :class="`btn-padd rounded white--text font-weight-${(obra.anio < 1950) ? 'black cyan' : 'regular indigo'}` "><span>Año:</span> {{ obra.anio }}</p>
+            <v-icon large v-if="$route.name!='home'" @click="borrar">{{"mdi-trash-can-outline"}}</v-icon>
           </v-card-text>            
-            <v-icon large class="pb-4" v-if="$route.name!='home'" @click="borrar">{{"mdi-trash-can-outline"}}</v-icon>
                   
         </div>
       </v-expand-transition>
@@ -60,6 +60,12 @@ span {
 p {
   font-size: 1.2rem;
   line-height: 0.5;
-  padding: 10px;  
+  padding: 3px;  
 }
+
+.btn-padd{
+  padding: 10px;
+}
+
+
 </style>

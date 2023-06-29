@@ -1,8 +1,14 @@
 <template>
   <v-footer dark padless class="mt-6">
     <v-col>
-      <v-card flat tile class="lighten-1 white--text text-center">
-        <v-card-text>
+      <v-card flat tile class="lighten-1 white--text text-center">      
+              <v-img 
+                src="../../public/img/logo/logo_ok.png"
+                class="mx-auto"
+                width="60px"
+              >
+              </v-img>
+        <v-card-text class="pt-0 pb-0">
           <v-btn v-for="icon in socialNet" :key="icon.icon" class="mx-4 white--text" icon :href="icon.link"  target="_blank">
             <v-icon size="24px">
               {{ icon.icon }}              
@@ -34,3 +40,9 @@ export default {
   }),
 };
 </script>
+
+
+<style scoped>
+
+
+</style>

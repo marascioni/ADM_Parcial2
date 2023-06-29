@@ -6,7 +6,6 @@
 
     <v-snackbar v-model="snackbarError" timeout="5000" top color="error">
       {{ textError }}
-
       <template v-slot:action="{ attrs }">
         <v-btn color="white" text v-bind="attrs" @click="snackbarError = false">
           Cerrar
@@ -27,20 +26,21 @@
     <v-item-group>
       <v-container>
         <v-row>
-          <v-col cols="12" md="4" align-self="center">            
-              <v-item class="text-center">                
-                  <v-img
-                    src="../../public/img/logo/logo_ok.png"
-                    class="mx-auto"
-                    width="80%">
-                  </v-img>                
-              </v-item>            
+          <v-col cols="12" md="4" align-self="center">
+            <v-item class="text-center">
+              <v-img
+                src="../../public/img/logo/logo_ok.png"
+                class="mx-auto"
+                width="80%"
+              >
+              </v-img>
+            </v-item>
           </v-col>
           <v-col cols="12" md="6">
             <v-item>
               <form class="mx-10 rounded-lg">
                 <v-text-field
-                  class="px-5"
+                  class="px-5 pt-8"
                   v-model="tituloObra"
                   label="Título*"
                   required
@@ -84,10 +84,11 @@
                   label="Categoría*"
                   required
                 ></v-select>
-
-                <v-btn class="mr-4 mb-4 secondary" @click="controlarCampos">
-                  Agregar
-                </v-btn>
+                <div class="btn-center">
+                  <v-btn class="mr-4 mb-4 secondary" @click="controlarCampos">
+                    Agregar
+                  </v-btn>
+                </div>
               </form>
             </v-item>
           </v-col>
@@ -96,7 +97,7 @@
     </v-item-group>
     <v-item-group>
       <v-container v-if="nuevaObra.length">
-        <h2>Obras agregadas</h2>
+        <h2 class="text-center">Obras agregadas</h2>
         <v-row>
           <v-col v-for="obra in nuevaObra" :key="obra.nombre" cols="12" md="4">
             <v-item>
@@ -220,22 +221,17 @@ export default {
       this.categoriaSeleccionada = "Categoría*";
       this.catalogoObras = this.catalogoObras.concat(this.obra);
       localStorage.setItem("Catalogo", JSON.stringify(this.catalogoObras));
-    }, 
-    borrar(idObra) {     
-      
-    for (let i = 0; i < this.catalogoObras.length; i++) {
-      if(this.catalogoObras[i].id==idObra)
-        this.catalogoObras.splice(i,1);
-    }
-    localStorage.setItem("Catalogo", JSON.stringify(this.catalogoObras)); 
-
-     for (let i = 0; i < this.nuevaObra.length; i++) {
-      if(this.nuevaObra[i].id==idObra)
-        this.nuevaObra.splice(i,1);
-    } 
     },
-    
-    
+    borrar(idObra) {
+      for (let i = 0; i < this.catalogoObras.length; i++) {
+        if (this.catalogoObras[i].id == idObra) this.catalogoObras.splice(i, 1);
+      }
+      localStorage.setItem("Catalogo", JSON.stringify(this.catalogoObras));
+
+      for (let i = 0; i < this.nuevaObra.length; i++) {
+        if (this.nuevaObra[i].id == idObra) this.nuevaObra.splice(i, 1);
+      }
+    },
 
     controlarCampos: function () {
       for (let i = 0; i < this.categorias.length; i++) {
@@ -308,5 +304,9 @@ h2 {
 
 form {
   background-color: rgb(255, 255, 255);
+}
+
+.btn-center {
+  text-align: center;
 }
 </style>

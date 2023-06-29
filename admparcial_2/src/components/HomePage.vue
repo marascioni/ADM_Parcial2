@@ -123,6 +123,7 @@ h1 {
   font-size: 3rem;
   font-style: italic;
   padding: 1.5rem 0rem;
+  text-align: center;
 }
 
 h2 {
