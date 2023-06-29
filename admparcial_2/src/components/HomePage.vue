@@ -63,8 +63,7 @@ export default {
     selectedItems: "Catálogo",
     categorias: [],
     catalogoObras: [],
-    catalogoFiltrado: [],
-    items: ["Foo", "Bar", "Fizz", "Buzz"],
+    catalogoFiltrado: [],    
   }),
   props: {
     msg: String,

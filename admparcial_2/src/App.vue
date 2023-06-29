@@ -6,6 +6,13 @@
       <v-navigation-drawer v-model="drawer" absolute left temporary>
         <v-list-item @click="showDialog">
           <v-list-item-content>
+          <v-container fluid>
+            <v-img
+                    src="../public/img/logo/logo_ok.png"
+                    class="mx-auto"
+                    width="80px">
+                  </v-img>
+                  </v-container>
             <v-list-item-title class="text-h6"> SauRa </v-list-item-title>
             <v-list-item-subtitle> {{sesion ? 'Cerrar sesión' : 'Iniciar sesión'}} </v-list-item-subtitle>
           </v-list-item-content>

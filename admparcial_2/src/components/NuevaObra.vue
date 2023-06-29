@@ -280,6 +280,14 @@ h1 {
   padding: 1.5rem 0rem;
 }
 
+h2 {
+  color: rgb(154, 34, 175);
+  font-weight: bold;
+  font-size: 2rem;
+  font-style: italic;
+  padding: 1.5rem 0rem;
+}
+
 form {
   background-color: rgb(255, 255, 255);
 }
