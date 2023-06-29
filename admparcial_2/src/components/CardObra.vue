@@ -11,7 +11,7 @@
             <p><span>Autor:</span> {{ obra.autor }}</p>
             <p><span>Categoría:</span> {{ obra.categoria }}</p>
             <p><span>Estilo:</span> {{ obra.estilo }}</p>
-            <p><span>Año:</span> {{ obra.anio }}</p>
+            <p :class="`rounded white--text font-weight-${(obra.anio < 1960) ? 'black cyan' : 'regular indigo'}` "><span>Año:</span> {{ obra.anio }}</p>
           </v-card-text>
         </div>
       </v-expand-transition>
@@ -51,5 +51,6 @@ span {
 p {
   font-size: 1.2rem;
   line-height: 0.8;
+  padding: 10px;  
 }
 </style>

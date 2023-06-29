@@ -7,7 +7,7 @@
         <v-list-item @click="showDialog">
           <v-list-item-content>
             <v-list-item-title class="text-h6"> SauRa </v-list-item-title>
-            <v-list-item-subtitle> {{textLogin}}</v-list-item-subtitle>
+            <v-list-item-subtitle> {{sesion ? 'Cerrar sesión' : 'Iniciar sesión'}} </v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
 
@@ -77,10 +77,10 @@
                   </v-card-text>
                   <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn color="blue darken-1" text @click="dialog = false">
+                    <v-btn color="purple darken-2" text @click="dialog = false">
                       Cerrar
                     </v-btn>
-                    <v-btn color="blue darken-1" text @click="login">
+                    <v-btn color="purple darken-2" text @click="login" >
                       Iniciar Sesión
                     </v-btn>
                   </v-card-actions>
@@ -120,8 +120,7 @@ export default {
     email:"",
     password:"",    
     termCond:false,
-    dialog:false, 
-    textLogin:"Inicio de sesión",
+    dialog:false,     
     snackbarError: false,
     textError:'Verifique los datos cargados',
     ///
@@ -228,8 +227,7 @@ export default {
           const user = userCredential.user;
           console.log(user.displayName);
           this.sesion=true;
-          this.dialog=false;
-          this.textLogin="Cierre de sesión";
+          this.dialog=false;          
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -257,8 +255,7 @@ export default {
               console.log(error);
             });
             this.sesion=false;
-            this.termCond=false;
-            this.textLogin="Inicio de sesión";
+            this.termCond=false;            
             if(this.$route.name=='agregar')
               this.$router.push('/');
         }
