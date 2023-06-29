@@ -202,8 +202,7 @@ export default {
   /*******************************************/
   /* METODOS */
   /*******************************************/
-  beforeMount() {
-    console.log("Se va a montar el componente");
+  beforeMount() {    
     if (localStorage.Catalogo != undefined) {
       this.catalogoObras = JSON.parse(localStorage.getItem("Catalogo"));
     } else {
@@ -227,19 +226,24 @@ export default {
         .then((userCredential) => {
           // Signed in 
           const user = userCredential.user;
-          console.log(user);
+          console.log(user.displayName);
           this.sesion=true;
           this.dialog=false;
           this.textLogin="Cierre de sesión";
         })
         .catch((error) => {
           const errorCode = error.code;
-          const errorMessage = error.message;
-          console.log(errorCode, errorMessage);
-          
+          const errorMessage = error.message;          
+          console.log( errorMessage);
+          this.snackbarError= true;
+          if(errorCode=='auth/user-not-found')
+            this.textError='El email cargado no existe';
+          if(errorCode=='auth/wrong-password')
+            this.textError='El password ingresado es incorrecto';
         })}  
         else{
           this.snackbarError= true;
+          this.textError='Falta aceptar los terminos y condiciones';
         }      
     },
     showDialog(){      

@@ -24,7 +24,7 @@
 export default {
   name: "CardObra",
   props: {
-    obra: Array,    
+    obra: Object,    
   },
   data: () => ({
     
