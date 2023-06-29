@@ -27,15 +27,14 @@
     <v-item-group>
       <v-container>
         <v-row>
-          <v-col cols="12" md="4">
-            <v-item class="text-center">
-              <v-img
-                src="../../public/img/logo/logo_ok.png"
-                class="mx-auto"
-                width="80%"
-              >
-              </v-img>
-            </v-item>
+          <v-col cols="12" md="4" align-self="center">            
+              <v-item class="text-center">                
+                  <v-img
+                    src="../../public/img/logo/logo_ok.png"
+                    class="mx-auto"
+                    width="80%">
+                  </v-img>                
+              </v-item>            
           </v-col>
           <v-col cols="12" md="6">
             <v-item>
@@ -46,12 +45,6 @@
                   label="Título*"
                   required
                 ></v-text-field>
-                <!-- <v-text-field
-                  class="px-5"
-                  v-model="portadaObra"
-                  label="Imagen*"
-                  required
-                ></v-text-field>               -->
                 <v-file-input
                   v-model="fichero"
                   class="px-5"
@@ -187,7 +180,7 @@ export default {
         method: "POST",
         mode: "cors",
         cache: "no-cache",
-        body: imgData,       
+        body: imgData,
       };
       fetch("https://parcial2adm.000webhostapp.com/carga.php", options)
         .then((response) => {
