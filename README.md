@@ -1,6 +1,7 @@
 ### ADM_Parcial2
-##Parcial 2 de Aplicación para Dispositivos Móviles
-##Integrantes:
+Parcial 2 de Aplicación para Dispositivos Móviles
+
+Integrantes:
 Saurrales, Carolina
 Rascioni, Miguel
 
