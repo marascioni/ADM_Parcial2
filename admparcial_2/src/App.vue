@@ -15,7 +15,7 @@
               >
               </v-img>
             </v-container>
-            <v-list-item-title class="text-h5 text-center" > SauRa </v-list-item-title>
+            <v-list-item-title class="text-h5 text-center font-weight-black font-italic" > SauRa </v-list-item-title>
             <v-list-item-subtitle class="text-h7 text-center">
               {{ sesion ? "Cerrar sesión" : "Iniciar sesión" }} 
             </v-list-item-subtitle>
@@ -62,10 +62,10 @@
             <template v-slot:activator="{}"> </template>
             <v-card>
               <v-card-title>
-                <span class="text-h5">Inicio de sesión</span>
+                <span class="text-h5 pt-4 mx-auto font-italic font-weight-black text-color" >Inicio de sesión</span>
               </v-card-title>
               <v-card-text>
-                <v-container>
+                <v-container >
                   <v-row>
                     <v-col cols="12">
                       <v-text-field
@@ -300,19 +300,9 @@ export default {
   text-decoration: none;
 }
 
-nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+.text-color{
+  color: rgb(154, 34, 175);
 }
-
 
 .link{
   text-decoration: none;  
