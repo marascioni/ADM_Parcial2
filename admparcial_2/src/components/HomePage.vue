@@ -2,7 +2,7 @@
   <div class="fondo">
     <h1>Obras</h1>
 
-    <v-col class="d-flex" cols="6" md="3" sm="3">
+    <v-col class="d-flex mx-auto" cols="6" md="3" sm="3">
       <h2>Filtro</h2>
       <v-select
         v-model="selectedItems"
